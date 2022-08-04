@@ -27,3 +27,6 @@ parameters = {
     }
 }
 response = requests.post(url=endpoint, headers=header, params=parameters)
+print(response)
+print(response.data)
+print(response.data.imageUrl)
