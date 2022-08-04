@@ -1,12 +1,12 @@
 import base64
-from secrets import API_APPLICATION_ID, API_SECRET_KEY  # type: ignore
+from secrets import API_APPLICATION_ID, API_SECRET_KEY, API_HASH  # type: ignore
 import requests
 
-creds = f"{API_APPLICATION_ID}:{API_SECRET_KEY}"
-credsbytes = creds.encode('utf-8')
-credsencode = base64.b64encode(credsbytes)
-header = {'Authorization': f'Basic {credsencode}'}
-endpoint = 'https://api.astronomyapi.com/api/v2/studio/star-chart'
+#creds = f"{API_APPLICATION_ID}:{API_SECRET_KEY}"
+#credsbytes = creds.encode('utf-8')
+#credsencode = base64.b64encode(credsbytes)
+header = {'Authorization': f'Basic {API_HASH}'}
+url = 'https://api.astronomyapi.com/api/v2/studio/star-chart'
 parameters = {
     "observer": {
         "latitude": 33.775867,
@@ -26,7 +26,6 @@ parameters = {
         }
     }
 }
-response = requests.post(url=endpoint, headers=header, params=parameters)
+response = requests.request("POST", url, json=parameters, headers=header)
 print(response)
-print(response.data)
-print(response.data.imageUrl)
+#print(response.json())
